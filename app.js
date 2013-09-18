@@ -64,66 +64,6 @@ sockets.sockets.on('connection', function(socket) {
 //You will need to get your own key. Don't worry, it's free. But I cannot provide you one
 //since it will instantiate a connection on my behalf and will drop all other streaming connections.
 //Check out: https://dev.twitter.com/
-var t = new twitter({
-	consumer_key : 'g51ORUZu9Dhh2Y9EP5MdoQ',
-	consumer_secret : 'fpeztFd18hiONDTFjgEFCSEmPRCtSHfZWzgsAU',
-	access_token_key : '248170545-S8eGLvuwhu6ZAj20vBwFisqH1HqAPf1OBesC1c4n',
-	access_token_secret : 'MifQzyp2piKKwcooOvqG3THuGretfLjG94wD0c0Pak'
-});
-
-// //Tell the twitter API to filter on the watchSymbols 
-t.stream('statuses/filter', { track: watchSymbols }, function(stream) {
-
-  //We have a connection. Now watch the 'data' event for incomming tweets.
-  stream.on('data', function(tweet) {
-	console.log(tweet.text);    
-    //This variable is used to indicate whether a symbol was actually mentioned.
-    //Since twitter doesnt why the tweet was forwarded we have to search through the text
-    //and determine which symbol it was ment for. Sometimes we can't tell, in which case we don't
-    //want to increment the total counter...
-    var claimed = false;
-
-    //Make sure it was a valid tweet
-    if (tweet.text !== undefined) {
-
-      //We're gunna do some indexOf comparisons and we want it to be case agnostic.
-      var text = tweet.text.toLowerCase();
-
-      //Go through every symbol and see if it was mentioned. If so, increment its counter and
-      //set the 'claimed' variable to true to indicate something was mentioned so we can increment
-      //the 'total' counter!
-      _.each(watchSymbols, function(v) {
-          if (text.indexOf(v.toLowerCase()) !== -1) {
-              watchList.symbols[v]++;
-              claimed = true;
-          }
-      });
-
-      //If something was mentioned, increment the total counter and send the update to all the clients
-      if (claimed) {
-          //Increment total
-          watchList.total++;
-
-          //Send to all the clients
-          sockets.sockets.emit('data', watchList);
-      }
-    }
-  });
-});
-
-//Reset everything on a new day!
-//We don't want to keep data around from the previous day so reset everything.
-new cronJob('0 0 0 * * *', function(){
-    //Reset the total
-    watchList.total = 0;
-
-    //Clear out everything in the map
-    _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
-
-    //Send the update to the clients
-    sockets.sockets.emit('data', watchList);
-}, null, true);
-
 //Create the server
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
