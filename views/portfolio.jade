@@ -1,0 +1,830 @@
+!!! 5
+html(lang='en')
+//
+  <![endif]
+  //
+     BEGIN HEAD 
+  head
+    meta(charset='utf-8')
+    title=title
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    meta(content='', name='description')
+    meta(content='', name='author')
+    //
+       BEGIN GLOBAL MANDATORY STYLES 
+    link(href='plugins/bootstrap/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='plugins/bootstrap/css/bootstrap-responsive.min.css', rel='stylesheet', type='text/css')
+    link(href='plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    link(href='css/style-metro.css', rel='stylesheet', type='text/css')
+    link(href='css/style.css', rel='stylesheet', type='text/css')
+    link(href='css/style-responsive.css', rel='stylesheet', type='text/css')
+    link#style_color(href='css/themes/default.css', rel='stylesheet', type='text/css')
+    link(href='plugins/uniform/css/uniform.default.css', rel='stylesheet', type='text/css')
+    //
+       END GLOBAL MANDATORY STYLES 
+    //
+       BEGIN PAGE LEVEL STYLES 
+    link(href='plugins/bootstrap-fileupload/bootstrap-fileupload.css', rel='stylesheet', type='text/css')
+    link(href='plugins/chosen-bootstrap/chosen/chosen.css', rel='stylesheet', type='text/css')
+    link(href='css/pages/profile.css', rel='stylesheet', type='text/css')
+    //
+       END PAGE LEVEL STYLES 
+    link(rel='shortcut icon', href='favicon.ico')
+  //
+     END HEAD 
+  //
+     BEGIN BODY 
+  body.fixed-top
+    //
+       BEGIN HEADER 
+    .header.navbar.navbar-inverse.navbar-fixed-top
+      //
+         BEGIN TOP NAVIGATION BAR 
+      .navbar-inner
+        .container-fluid
+          //
+             BEGIN LOGO 
+          a.brand(href='index')
+            img(src='img/logo.png', alt='logo')
+          //
+             END LOGO 
+          //
+             BEGIN RESPONSIVE MENU TOGGLER 
+          a.btn-navbar.collapsed(href='javascript:;', data-toggle='collapse', data-target='.nav-collapse')
+            img(src='img/menu-toggler.png', alt='')
+          //
+             END RESPONSIVE MENU TOGGLER
+      //
+         END TOP NAVIGATION BAR 
+    //
+       END HEADER 
+    //
+       BEGIN CONTAINER 
+    .page-container.row-fluid
+      //
+         BEGIN SIDEBAR 
+      .page-sidebar.nav-collapse.collapse
+        //
+           BEGIN SIDEBAR MENU 
+        ul
+          li
+            //
+               BEGIN SIDEBAR TOGGLER BUTTON 
+            .sidebar-toggler.hidden-phone
+            //
+               BEGIN SIDEBAR TOGGLER BUTTON 
+          li
+            //
+               BEGIN RESPONSIVE QUICK SEARCH FORM 
+            form.sidebar-search
+              .input-box
+                a.remove(href='javascript:;')
+                input(type='text', placeholder='Search...')
+                input.submit(type='button', value=' ')
+            //
+               END RESPONSIVE QUICK SEARCH FORM 
+          li.start
+            a(href='index')
+              i.icon-home
+              span.title Dashboard
+          li.start.active
+            a.active(href='portfolios')
+              i.icon-briefcase
+              span.title Portfolios
+              span.selected
+          li
+            a(href='companies')
+              i.icon-folder-open
+              span.title Companies
+          li
+            a(href='industries')
+              i.icon-folder-open
+              span.title Industries
+        //
+           END SIDEBAR MENU 
+      //
+         END SIDEBAR 
+      //
+         BEGIN PAGE 
+      .page-content
+        //
+           BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM
+        #portlet-config.modal.hide
+          .modal-header
+            button.close(data-dismiss='modal', type='button')
+            h3 portlet Settings
+            p Here will be a configuration form
+        //
+           END SAMPLE PORTLET CONFIGURATION MODAL FORM
+        //
+           BEGIN PAGE CONTAINER
+        .container-fluid
+          //
+             BEGIN PAGE HEADER
+          .row-fluid
+            .span12
+              //
+                 BEGIN PAGE TITLE & BREADCRUMB
+              h3.page-title
+                =portfolio.username
+                small  #{portfolio.description}
+              ul.breadcrumb
+                li
+                  i.icon-home
+                  a(href='index') Home
+                  i.icon-angle-right
+                li
+                  a(href='portfolios') Portfolios
+                  i.icon-angle-right
+                li
+                  a(href='portfolio?#{portfolio.id}')=portfolio.username
+              //
+                 END PAGE TITLE & BREADCRUMB
+          //
+             END PAGE HEADER
+          //
+             BEGIN PAGE CONTENT
+          .row-fluid.profile
+            .span12
+              //
+                BEGIN TABS
+              .tabbable.tabbable-custom.tabbable-full-width
+                ul.nav.nav-tabs
+                  li.active
+                    a(href='#tab_1_1', data-toggle='tab') Overview
+                  li
+                    a(href='#tab_1_2', data-toggle='tab') Portfolio Info
+                  li
+                    a(href='#tab_1_4', data-toggle='tab') Companies
+                  li
+                    a(href='#tab_1_5', data-toggle='tab') Industries
+                  li
+                    a(href='#tab_1_3', data-toggle='tab') Edit
+                .tab-content
+                  #tab_1_1.tab-pane.row-fluid.active
+                    ul.unstyled.profile-nav.span3
+                      li
+                        img(src='img/profile/profile-img.png', alt='')
+                        a.profile-edit(href='#tab_1_3', data-toggle='tab') edit
+                    .span9
+                      .row-fluid
+                        .span8.profile-info
+                          h1=portfolio.username
+                          p
+                            =portfolio.description
+                          p
+                            a(href='#') www.mywebsite.com
+                          ul.unstyled.inline
+                            li
+                              i.icon-map-marker
+                              | Portfolio Location
+                            li
+                              i.icon-calendar
+                              | 18 Jan 1982(Established)
+                            li
+                              i.icon-briefcase
+                              | Purpose
+                            li
+                              i.icon-star
+                              | Best Company
+                        //
+                          end span8
+                        .span4
+                          .portlet.sale-summary
+                            .portlet-title
+                              .caption Tweet Summary
+                              .tools
+                                a.reload(href='javascript:;')
+                            ul.unstyled
+                              li
+                                span.sale-info
+                                  | TODAY
+                                  i.icon-img-up
+                                span.sale-num=portfolio.tweetsToday
+                              li
+                                span.sale-info
+                                  | WEEKLY
+                                  i.icon-img-down
+                                span.sale-num=portfolio.tweetsWeek
+                              li
+                                span.sale-info TOTAL
+                                span.sale-num=portfolio.numberOfTweets
+                              li
+                                span.sale-info SCORE
+                                span.sale-num=portfolio.portfolioScore
+                        //
+                          end span4
+                      //
+                        end row-fluid
+                      .tabbable.tabbable-custom.tabbable-custom-profile
+                        ul.nav.nav-tabs
+                          li.active
+                            a(href='#tab_1_11', data-toggle='tab') Latest Tweets
+                          li
+                            a(href='#tab_1_22', data-toggle='tab') Most Influential Tweets
+                          li
+                            a(href='#tab_1_33', data-toggle='tab') Most Detrimental Tweets  
+                        .tab-content
+                          #tab_1_11.tab-pane.active
+                            .portlet-body(style='display: block;')
+                              table.table.table-striped.table-bordered.table-advance.table-hover
+                                thead
+                                  tr
+                                    th
+                                      i.icon-briefcase
+                                      | User
+                                    th.hidden-phone
+                                      i.icon-question-sign
+                                      | Content
+                                    th
+                                      i.icon-bookmark
+                                      | Score
+                                    th
+                                      i.icon-bookmark
+                                      | Date
+                                tbody
+                                  - if (portfolio.latestTweets != null)
+                                    - each tweet in portfolio.latestTweets
+                                      tr
+                                        td
+                                          a(href='user?tweet.user.id')@#{tweet.user.screenName}
+                                        td.hidden-phone=tweet.text
+                                        td
+                                          =tweet.tweetScore
+                                        td
+                                          =tweet.createdAt
+                          //
+                            tab-pane
+                          #tab_1_22.tab-pane
+                            #tab_1_1_1.tab-pane.active
+                              .portlet-body(style='display: block;')
+                                table.table.table-striped.table-bordered.table-advance.table-hover
+                                  thead
+                                    tr
+                                      th
+                                        i.icon-briefcase
+                                        | User
+                                      th.hidden-phone
+                                        i.icon-question-sign
+                                        | Content
+                                      th
+                                        i.icon-bookmark
+                                        | Score
+                                      th
+                                        i.icon-bookmark
+                                        | Date
+                                  tbody
+                                    - if (portfolio.mostInfluentialTweets != null)
+                                      - each tweet in portfolio.mostInfluentialTweets
+                                        tr
+                                          td
+                                            a(href='user?tweet.user.id')@#{tweet.user.screenName}
+                                          td.hidden-phone=tweet.text
+                                          td
+                                            =tweet.tweetScore
+                                          td
+                                            =tweet.createdAt
+                          //
+                            tab-pane
+                          #tab_1_33.tab-pane
+                            #tab_1_1_1.tab-pane.active
+                              .portlet-body(style='display: block;')
+                                table.table.table-striped.table-bordered.table-advance.table-hover
+                                  thead
+                                    tr
+                                      th
+                                        i.icon-briefcase
+                                        | User
+                                      th.hidden-phone
+                                        i.icon-question-sign
+                                        | Content
+                                      th
+                                        i.icon-bookmark
+                                        | Score
+                                      th
+                                        i.icon-bookmark
+                                        | Date
+                                  tbody
+                                    - if (portfolio.mostDetrimentalTweets != null)
+                                      - each tweet in portfolio.mostDetrimentalTweets
+                                        tr
+                                          td
+                                            a(href='user?tweet.user.id')@#{tweet.user.screenName}
+                                          td.hidden-phone=tweet.text
+                                          td
+                                            =tweet.tweetScore
+                                          td
+                                            =tweet.createdAt
+                    //
+                      end span9
+                  //
+                    end tab-pane
+                  #tab_1_2.tab-pane.profile-classic.row-fluid
+                    .span2
+                      img(src='img/profile/profile-img.png', alt='')
+                      a.profile-edit(href='#') edit
+                    ul.unstyled.span10
+                      li
+                        span Name:
+                        =portfolio.username
+                      li
+                        span Description:
+                        =portfolio.description
+                      li
+                        span Number of Tweets:
+                        =portfolio.numberOfTweets
+                      li
+                        span Portfolio Score:
+                        =portfolio.portfolioScore
+                      li
+                        span Tags:
+                        =portfolio.tags
+                  //
+                    tab_1_2
+                  #tab_1_3.tab-pane.row-fluid.profile-account
+                    .row-fluid
+                      .span12
+                        .span3
+                          ul.ver-inline-menu.tabbable.margin-bottom-10
+                            li.active
+                              a(data-toggle='tab', href='#tab_1-1')
+                                i.icon-cog
+                                | Personal info
+                              span.after
+                            li
+                              a(data-toggle='tab', href='#tab_2-2')
+                                i.icon-picture
+                                | Change Avatar
+                            li
+                              a(data-toggle='tab', href='#tab_3-3')
+                                i.icon-lock
+                                | Change Password
+                            li
+                              a(data-toggle='tab', href='#tab_4-4')
+                                i.icon-eye-open
+                                | Privacity Settings
+                        .span9
+                          .tab-content
+                            #tab_1-1.tab-pane.active
+                              #accordion1-1.accordion.collapse(style='height: auto;')
+                                form(action='#')
+                                  label.control-label First Name
+                                  input.m-wrap.span8(type='text', placeholder='John')
+                                  label.control-label Last Name
+                                  input.m-wrap.span8(type='text', placeholder='Doe')
+                                  label.control-label Mobile Number
+                                  input.m-wrap.span8(type='text', placeholder='+1 646 580 DEMO (6284)')
+                                  label.control-label Interests
+                                  input.m-wrap.span8(type='text', placeholder='Design, Web etc.')
+                                  label.control-label Occupation
+                                  input.m-wrap.span8(type='text', placeholder='Web Developer')
+                                  label.control-label Counrty
+                                  .controls
+                                    input.span8.m-wrap(type='text', style='margin: 0 auto;', data-provide='typeahead', data-items='4', data-source='["Alabama","Alaska","Arizona","Arkansas","US","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]')
+                                    p.help-block
+                                      span.muted Start typing to auto complete!. E.g: US
+                                  label.control-label About
+                                  textarea.span8.m-wrap(rows='3')
+                                  label.control-label Website Url
+                                  input.m-wrap.span8(type='text', placeholder='http://www.mywebsite.com')
+                                  .submit-btn
+                                    a.btn.green(href='#') Save Changes
+                                    a.btn(href='#') Cancel
+                            #tab_2-2.tab-pane
+                              #accordion2-2.accordion.collapse(style='height: auto;')
+                                form(action='#')
+                                  p
+                                    | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                  br
+                                  .controls
+                                    .thumbnail(style='width: 291px; height: 170px;')
+                                      img(src='http://www.placehold.it/291x170/EFEFEF/AAAAAA&text=no+image', alt='')
+                                  .space10
+                                  .fileupload.fileupload-new(data-provides='fileupload')
+                                    .input-append
+                                      .uneditable-input
+                                        i.icon-file.fileupload-exists
+                                        span.fileupload-preview
+                                      span.btn.btn-file
+                                        span.fileupload-new Select file
+                                        span.fileupload-exists Change
+                                        input.default(type='file')
+                                      a.btn.fileupload-exists(href='#', data-dismiss='fileupload') Remove
+                                  .clearfix
+                                  .controls
+                                    span.label.label-important NOTE!
+                                    span You can write some information here..
+                                  .space10
+                                  .submit-btn
+                                    a.btn.green(href='#') Submit
+                                    a.btn(href='#') Cancel
+                            #tab_3-3.tab-pane
+                              #accordion3-3.accordion.collapse(style='height: auto;')
+                                form(action='#')
+                                  label.control-label Current Password
+                                  input.m-wrap.span8(type='password')
+                                  label.control-label New Password
+                                  input.m-wrap.span8(type='password')
+                                  label.control-label Re-type New Password
+                                  input.m-wrap.span8(type='password')
+                                  .submit-btn
+                                    a.btn.green(href='#') Change Password
+                                    a.btn(href='#') Cancel
+                            #tab_4-4.tab-pane
+                              #accordion4-4.accordion.collapse(style='height: auto;')
+                                form(action='#')
+                                  .profile-settings.row-fluid
+                                    .span9
+                                      p Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus..
+                                    .control-group.span3
+                                      .controls
+                                        label.radio
+                                          input(type='radio', name='optionsRadios1', value='option1')
+                                          | Yes
+                                        label.radio
+                                          input(type='radio', name='optionsRadios1', value='option2', checked='checked')
+                                          | No
+                                  //
+                                    end profile-settings
+                                  .profile-settings.row-fluid
+                                    .span9
+                                      p Enim eiusmod high life accusamus terry richardson ad squid wolf moon
+                                    .control-group.span3
+                                      .controls
+                                        label.checkbox
+                                          input(type='checkbox', value='')
+                                          | All
+                                        label.checkbox
+                                          input(type='checkbox', value='')
+                                          | Friends
+                                  //
+                                    end profile-settings
+                                  .profile-settings.row-fluid
+                                    .span9
+                                      p Pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
+                                    .control-group.span3
+                                      .controls
+                                        label.checkbox
+                                          input(type='checkbox', value='')
+                                          | Yes
+                                  //
+                                    end profile-settings
+                                  .profile-settings.row-fluid
+                                    .span9
+                                      p Cliche reprehenderit enim eiusmod high life accusamus terry
+                                    .control-group.span3
+                                      .controls
+                                        label.checkbox
+                                          input(type='checkbox', value='')
+                                          | Yes
+                                  //
+                                    end profile-settings
+                                  .profile-settings.row-fluid
+                                    .span9
+                                      p Oiusmod high life accusamus terry richardson ad squid wolf fwopo
+                                    .control-group.span3
+                                      .controls
+                                        label.checkbox
+                                          input(type='checkbox', value='')
+                                          | Yes
+                                  //
+                                    end profile-settings
+                                  .space5
+                                  .submit-btn
+                                    a.btn.green(href='#') Save Changes
+                                    a.btn(href='#') Cancel
+                        //
+                          end span9
+                  //
+                    end tab-pane
+                  #tab_1_4.tab-pane
+                    .row-fluid.add-portfolio
+                      .pull-left
+                        span #{portfolio.companies.length} Companies
+                      .pull-left
+                        a.btn.icn-only.green(href='#')
+                          | Add a new Company
+                          i.m-icon-swapright.m-icon-white
+                    //
+                      end add-portfolio
+                    - each company in portfolio.companies  
+                      .row-fluid.portfolio-block
+                        .span5.portfolio-text
+                          img(src='img/profile/portfolio/logo_metronic.jpg', alt='')
+                          .portfolio-text-info
+                            h4
+                              a(href='company?id=#{company.id}')=company.name
+                            p=company.description
+                        .span5(style='overflow: hidden;')
+                          .portfolio-info
+                            | Number of Tweets
+                            span=company.tweets.length
+                          .portfolio-info
+                            | Company Score
+                            span=company.companyScore
+                          .portfolio-info
+                            | Stock Price
+                            span $#{company.stockPrice}
+                        .span2.portfolio-btn
+                          a.btn.bigicn-only(href='company?id=#{company.id}')
+                            span Manage
+                    //
+                      end row-fluid
+                  //
+                    end tab-pane
+                  #tab_1_5.tab-pane
+                    .row-fluid.add-portfolio
+                      .pull-left
+                        span #{portfolio.industries.length} Industries
+                      .pull-left
+                        a.btn.icn-only.green(href='#')
+                          | Add a new Industry
+                          i.m-icon-swapright.m-icon-white
+                    //
+                      end add-portfolio
+                    - each industry in portfolio.industries  
+                      .row-fluid.portfolio-block
+                        .span5.portfolio-text
+                          img(src='img/profile/portfolio/logo_metronic.jpg', alt='')
+                          .portfolio-text-info
+                            h4
+                              a(href='industry?id=#{industry.id}')=industry.name
+                            p=industry.description
+                        .span5(style='overflow: hidden;')
+                          .portfolio-info
+                            | Number of Companies
+                            span=industry.companies.length
+                          .portfolio-info
+                            | Number of Tweets
+                            span=industry.tweets.length
+                        .span2.portfolio-btn
+                          a.btn.bigicn-only(href='industry?id=#{industry.id}')
+                            span Manage
+                    //
+                      end row-fluid
+                  //
+                    end tab-pane  
+                  #tab_1_6.tab-pane.row-fluid
+                    .row-fluid
+                      .span12
+                        .span3
+                          ul.ver-inline-menu.tabbable.margin-bottom-10
+                            li.active
+                              a(data-toggle='tab', href='#tab_1')
+                                i.icon-briefcase
+                                | General Questions
+                              span.after
+                            li
+                              a(data-toggle='tab', href='#tab_2')
+                                i.icon-group
+                                | Membership
+                            li
+                              a(data-toggle='tab', href='#tab_3')
+                                i.icon-leaf
+                                | Terms Of Service
+                            li
+                              a(data-toggle='tab', href='#tab_1')
+                                i.icon-info-sign
+                                | License Terms
+                            li
+                              a(data-toggle='tab', href='#tab_2')
+                                i.icon-tint
+                                | Payment Rules
+                            li
+                              a(data-toggle='tab', href='#tab_3')
+                                i.icon-plus
+                                | Other Questions
+                        .span9
+                          .tab-content
+                            #tab_1.tab-pane.active
+                              #accordion1.accordion.collapse(style='height: auto;')
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_1', data-parent='#accordion1', data-toggle='collapse')
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry ?
+                                  #collapse_1.accordion-body.collapse.in
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_2', data-parent='#accordion1', data-toggle='collapse')
+                                      | Pariatur cliche reprehenderit enim eiusmod highr brunch ?
+                                  #collapse_2.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3', data-parent='#accordion1', data-toggle='collapse')
+                                      | Food truck quinoa nesciunt laborum eiusmod nim eiusmod high life accusamus  ?
+                                  #collapse_3.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_4', data-parent='#accordion1', data-toggle='collapse')
+                                      | High life accusamus terry richardson ad ?
+                                  #collapse_4.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_5', data-parent='#accordion1', data-toggle='collapse')
+                                      | Reprehenderit enim eiusmod high life accusamus terry quinoa nesciunt laborum eiusmod ?
+                                  #collapse_5.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_6', data-parent='#accordion1', data-toggle='collapse')
+                                      | Wolf moon officia aute non cupidatat skateboard dolor brunch ?
+                                  #collapse_6.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                            #tab_2.tab-pane
+                              #accordion2.accordion.collapse(style='height: auto;')
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_2_1', data-parent='#accordion2', data-toggle='collapse')
+                                      | Cliche reprehenderit, enim eiusmod high life accusamus enim eiusmod ?
+                                  #collapse_2_1.accordion-body.collapse.in
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_2_2', data-parent='#accordion2', data-toggle='collapse')
+                                      | Pariatur cliche reprehenderit enim eiusmod high life non cupidatat skateboard dolor brunch ?
+                                  #collapse_2_2.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_2_3', data-parent='#accordion2', data-toggle='collapse')
+                                      | Food truck quinoa nesciunt laborum eiusmod ?
+                                  #collapse_2_3.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_2_4', data-parent='#accordion2', data-toggle='collapse')
+                                      | High life accusamus terry richardson ad squid enim eiusmod high ?
+                                  #collapse_2_4.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_2_5', data-parent='#accordion2', data-toggle='collapse')
+                                      | Reprehenderit enim eiusmod high life accusamus terry quinoa nesciunt laborum eiusmod ?
+                                  #collapse_2_5.accordion-body.collapse
+                                    .accordion-inner
+                                      p
+                                        | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                      p
+                                        | moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmodBrunch 3 wolf moon tempor
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_2_6', data-parent='#accordion2', data-toggle='collapse')
+                                      | Wolf moon officia aute non cupidatat skateboard dolor brunch ?
+                                  #collapse_2_6.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_2_7', data-parent='#accordion2', data-toggle='collapse')
+                                      | Reprehenderit enim eiusmod high life accusamus terry quinoa nesciunt laborum eiusmod ?
+                                  #collapse_2_7.accordion-body.collapse
+                                    .accordion-inner
+                                      p
+                                        | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                      p
+                                        | moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmodBrunch 3 wolf moon tempor
+                            #tab_3.tab-pane
+                              #accordion3.accordion.collapse(style='height: auto;')
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3_1', data-parent='#accordion3', data-toggle='collapse')
+                                      | Cliche reprehenderit, enim eiusmod ?
+                                  #collapse_3_1.accordion-body.collapse.in
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3_2', data-parent='#accordion3', data-toggle='collapse')
+                                      | Pariatur skateboard dolor brunch ?
+                                  #collapse_3_2.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3_3', data-parent='#accordion3', data-toggle='collapse')
+                                      | Food truck quinoa nesciunt laborum eiusmod ?
+                                  #collapse_3_3.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3_4', data-parent='#accordion3', data-toggle='collapse')
+                                      | High life accusamus terry richardson ad squid enim eiusmod high ?
+                                  #collapse_3_4.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3_5', data-parent='#accordion3', data-toggle='collapse')
+                                      | Reprehenderit enim eiusmod high  eiusmod ?
+                                  #collapse_3_5.accordion-body.collapse
+                                    .accordion-inner
+                                      p
+                                        | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                      p
+                                        | moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmodBrunch 3 wolf moon tempor
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3_6', data-parent='#accordion3', data-toggle='collapse')
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry ?
+                                  #collapse_3_6.accordion-body.collapse
+                                    .accordion-inner
+                                      | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3_7', data-parent='#accordion3', data-toggle='collapse')
+                                      | Reprehenderit enim eiusmod high life accusamus aborum eiusmod ?
+                                  #collapse_3_7.accordion-body.collapse
+                                    .accordion-inner
+                                      p
+                                        | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                      p
+                                        | moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmodBrunch 3 wolf moon tempor
+                                .accordion-group
+                                  .accordion-heading
+                                    a.accordion-toggle.collapsed(href='#collapse_3_8', data-parent='#accordion3', data-toggle='collapse')
+                                      | Reprehenderit enim eiusmod high life accusamus terry quinoa nesciunt laborum eiusmod ?
+                                  #collapse_3_8.accordion-body.collapse
+                                    .accordion-inner
+                                      p
+                                        | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor.
+                                      p
+                                        | moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmodBrunch 3 wolf moon tempor
+                        //
+                          end span9
+                  //
+                    end tab-pane
+              //
+                END TABS
+          //
+             END PAGE CONTENT
+        //
+           END PAGE CONTAINER
+      //
+         END PAGE 
+    //
+       END CONTAINER 
+    //
+       BEGIN FOOTER 
+    .footer
+      | 2013 © Metronic by keenthemes.
+      .span.pull-right
+        span.go-top
+          i.icon-angle-up
+    //
+       END FOOTER 
+    //
+       BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) 
+    //
+       BEGIN CORE PLUGINS 
+    script(src='plugins/jquery-1.8.3.min.js', type='text/javascript')
+    //
+       IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip 
+    script(src='plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js', type='text/javascript')
+    script(src='plugins/bootstrap/js/bootstrap.min.js', type='text/javascript')
+    //if lt IE 9
+      script(src='plugins/excanvas.js')
+      script(src='plugins/respond.js')
+    script(src='plugins/breakpoints/breakpoints.js', type='text/javascript')
+    //
+       IMPORTANT! jquery.slimscroll.min.js depends on jquery-ui-1.10.1.custom.min.js 
+    script(src='plugins/jquery-slimscroll/jquery.slimscroll.min.js', type='text/javascript')
+    script(src='plugins/jquery.blockui.js', type='text/javascript')
+    script(src='plugins/jquery.cookie.js', type='text/javascript')
+    script(src='plugins/uniform/jquery.uniform.min.js', type='text/javascript')
+    //
+       END CORE PLUGINS 
+    //
+       BEGIN PAGE LEVEL PLUGINS 
+    script(type='text/javascript', src='plugins/bootstrap-fileupload/bootstrap-fileupload.js')
+    script(type='text/javascript', src='plugins/chosen-bootstrap/chosen/chosen.jquery.min.js')
+    //
+       END PAGE LEVEL PLUGINS 
+    //
+       BEGIN PAGE LEVEL SCRIPTS 
+    script(src='scripts/app.js')
+    //
+       END PAGE LEVEL SCRIPTS 
+    script.
+      jQuery(document).ready(function() {
+      // initiate layout and plugins
+      App.init();
+      });
+    //
+       END JAVASCRIPTS 
+  //
+     END BODY 
