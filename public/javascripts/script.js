@@ -7,13 +7,16 @@ $(function() {
             if (isNaN(val)) {
                 val = 0;
             }
+            var previousTweetTime = data.lastTweetTime[key];
+            var currentTime = new Date().getTime();
+            var differenceInSeconds = (currentTime - previousTweetTime)/1000;
             if( val < 0) {
               $('li[data-symbol="' + key + '"]').each(function() {
-                $(this).css('background-color', 'rgb(255,0,0)');
+                $(this).css('background-color', 'rgb('+255/(differenceInSeconds*100)+',0,0)');
               });
             } else if(val > 0){
             	$('li[data-symbol="' + key + '"]').each(function() {
-                    $(this).css('background-color', 'rgb(0,0,255)');
+                    $(this).css('background-color', 'rgb(0,0,'+255/(differenceInSeconds*100)+')');
                   });
             } else{
             	$('li[data-symbol="' + key + '"]').each(function() {

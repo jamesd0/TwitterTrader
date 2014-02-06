@@ -29,6 +29,7 @@ var watchList = {
 	    total: 0,
 	    tweetScore: {},
 	    symbols: {},
+	    lastTweetTime: {},
 	    initialScores: {},
 	    initialPrices: {},
 	    prices: {},
@@ -48,8 +49,8 @@ request.get('http://localhost:8080/twittertrader/company/getAllCompanies',functi
     		watchList.initialScores[v.stockSymbol] = v.companyScore;
     		watchList.prices[v.stockSymbol]=v.stockPrice;
     		watchList.initialPrices[v.stockSymbol]=v.stockPrice;
+    		watchList.lastTweetTime[v.stockSymbol]= new Date();
     	});
-    	console.log(companies);
     	console.log("Companies successfully received");
     }	
 });
@@ -112,6 +113,7 @@ app.rabbitMqConnection.on('ready', function() {
 		if(update.type == "companyTweet"){
 		  watchList.tweetScore[update.companySymbol] = update.tweetScore;	
 	  	  watchList.symbols[update.companySymbol] += update.tweetScore;
+	  	  watchList.lastTweetTime[update.companySymbol] = new Date().getTime();
 		  watchList.total++;
 		  sockets.sockets.emit('data', watchList);
 		}
@@ -123,6 +125,7 @@ app.rabbitMqConnection.on('ready', function() {
 });
 var server = http.createServer(app);
 var sockets = io.listen(server);
+sockets.set('log level',1);
 //If the client just connected, give them fresh data!
 sockets.sockets.on('connection', function(socket) { 
   socket.emit('data', watchList);
