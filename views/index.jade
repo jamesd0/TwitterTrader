@@ -6,16 +6,21 @@ html
         script(src="http://code.jquery.com/jquery-1.9.1.min.js")
         script(src="components/socket.io-client/dist/socket.io.min.js")
         script(src="/javascripts/script.js")
+        script(src="/javascripts/d3.js")
+        script(src="/javascripts/d3.layout.cloud.js")
+        script(src="/javascripts/wordcloud2.js")
     body
-        if data.streaming=true
-          a(href="http://localhost:3000/stopStreaming")
-              img(style="position: absolute; top: 0; right: 0; border: 0;", src="", alt="Stop streaming")
-        else
-          a(href="http://localhost:3000")
-              img(style="position: absolute; top: 0; right: 0; border: 0;", src="", alt="Start streaming")
         .container
             .header
-                h1 Twitter Symbol Heatmap
+                #cssmenu
+                  ul
+                    li(id="company")
+                      a(href='/')
+                        span Companies
+                    li(id="industry")
+                      a(href='/industries')
+                        span Industries
+                h1 Twitter Symbol Heatmap        
                 small 
                     | This application uses Node.js to create a streaming connection between it and Twitter. 
                     | Any mentions of the following symbols are received by the Node application and broadcasted
@@ -24,12 +29,23 @@ html
                     i
                         | Last updated:
                         span(id="last-update") Never
-            ul
+            ulA
                 each val, key in data.symbols
-                    li(data-symbol="#{key}")= key
+                    liA(data-symbol="#{key}")= key
                       small
                         span(id="scoreChange#{key}")
                       small
                         br
                         span(id="stockPrice#{key}")=data.prices[key]
                         span(id="stockPriceChange#{key}")
+           
+            #cssmenu
+                  ul
+                    li(id='all')
+                      a#wordcloudTab(href='#',onclick='MyFunction("all");return false;') All
+                    each val, key in data.symbols
+                      li(id='#{key}')
+                        a#wordcloudTab(href='#',onclick='MyFunction("#{key}");return false;') #{key}
+                    li(id='freeze')
+                      a#wordcloudFreeze(href='#',onclick='Freeze();return false;') FREEZE   
+            canvas#canvas.canvas(width='800', height='390')

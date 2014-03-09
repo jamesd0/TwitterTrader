@@ -1,5 +1,5 @@
 {
-  "name": "twitter-cash-heatmap",
+  "name": "twittertrader",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "underscore": "*",
     "amqp":"*",
     "connect":"*",
-    "request":"*"
+    "request":"*",
+    "d3.layout.cloud":"*"
   }
 }
