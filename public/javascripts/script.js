@@ -85,8 +85,6 @@ $(function() {
 		$('li[id="'+data.wordcloud+'"]').addClass('active');
 		var wordcloudList = [];
 		for ( var key in data.symbols) {
-			// if key is equal to current tab name or tab name is all
-			// then push onto list
 			if (data.wordcloud == "all" || key == data.wordcloud) {
 				for ( var item in data.topWords[key]) {
 					
